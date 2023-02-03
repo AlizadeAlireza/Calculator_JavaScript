@@ -18,12 +18,21 @@ class Calculator {
         this.currentOperand = this.currentOperand.toString() + number.toString()
     }
 
-    chooseOperation(operation) {}
+    chooseOperation(operation) {
+        if (this.currentOperand === "") return
+        if (this.previousOperand !== "") {
+            this.compute()
+        }
+        this.operation = operation
+        this.previousOperand = this.currentOperand
+        this.currentOperand = ""
+    }
 
     compute() {}
 
     updateDisplay() {
         this.currentOperandTextElement.innerText = this.currentOperand
+        this.previousOperandTextElement.innerText = this.previousOperand
     }
 }
 
@@ -58,4 +67,9 @@ operationButtons.forEach((button) => {
         calculator.chooseOperation(button.innerText)
         calculator.updateDisplay()
     })
+})
+
+equalsButton.addEventListener("click", () => {
+    calculator.compute()
+    calculator.updateDisplay()
 })
